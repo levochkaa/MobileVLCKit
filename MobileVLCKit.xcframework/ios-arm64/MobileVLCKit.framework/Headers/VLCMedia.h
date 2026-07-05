@@ -609,96 +609,151 @@ typedef NS_OPTIONS(int, VLCMediaParsingOptions) {
 - (void)clearStoredCookies;
 
 /**
+ * media statistics information
+ */
+struct VLCMediaStats
+{
+    /* Input */
+    const int         readBytes;
+    const float       inputBitrate;
+    /* Demux */
+    const int         demuxReadBytes;
+    const float       demuxBitrate;
+    const int         demuxCorrupted;
+    const int         demuxDiscontinuity;
+    /* Decoders */
+    const int         decodedVideo;
+    const int         decodedAudio;
+    /* Video Output */
+    const int         displayedPictures;
+    const int         lostPictures;
+    /* Audio output */
+    const int         playedAudioBuffers;
+    const int         lostAudioBuffers;
+    /* Stream output */
+    const int         sentPackets;
+    const int         sentBytes;
+    const float       sendBitrate;
+} NS_SWIFT_NAME(VLCMedia.Stats);
+typedef struct VLCMediaStats VLCMediaStats;
+
+/// media statistics information
+///
+/// - Parameters:
+///   - readBytes: the number of bytes read by the current input module.
+///   - inputBitrate: the current input bitrate. may be 0 if the buffer is full.
+///   - demuxReadBytes: the number of bytes read by the current demux module.
+///   - demuxBitrate: the current demux bitrate. may be 0 if the buffer is empty.
+///   - demuxCorrupted: the total number of corrupted data packets during current sout session.
+///   value is 0 on non-stream-output operations.
+///   - demuxDiscontinuity: the total number of discontinuties during current sout session.
+///   value is 0 on non-stream-output operations.
+///   - decodedVideo: the total number of decoded video blocks in the current media session.
+///   - decodedAudio: the total number of decoded audio blocks in the current media session.
+///   - displayedPictures: the total number of displayed pictures during the current media session.
+///   - lostPictures: the total number of pictures lost during the current media session.
+///   - playedAudioBuffers: the total number of played audio buffers during the current media session.
+///   - lostAudioBuffers: the total number of audio buffers lost during the current media session.
+///   - sentPackets: the total number of packets sent during the current media session.
+///   - sentBytes: the total number of raw bytes sent during the current media session.
+///   - sendBitrate: the current bitrate of sent bytes.
+@property (nonatomic, readonly) VLCMediaStats statistics;
+
+@end
+
+#pragma mark - VLCMedia+Deprecated
+
+@interface VLCMedia (Deprecated)
+
+/**
  * Getter for statistics information
  * Returns a NSDictionary with NSNumbers for values.
  *
  */
-@property (NS_NONATOMIC_IOSONLY, readonly, copy, nullable) NSDictionary *stats;
-
-#pragma mark - individual stats
+@property (NS_NONATOMIC_IOSONLY, readonly, copy, nullable) NSDictionary *stats DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the number of bytes read by the current input module
  * \return a NSInteger with the raw number of bytes
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfReadBytesOnInput;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfReadBytesOnInput DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the current input bitrate. may be 0 if the buffer is full
  * \return a float of the current input bitrate
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) float inputBitrate;
+@property (NS_NONATOMIC_IOSONLY, readonly) float inputBitrate DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the number of bytes read by the current demux module
  * \return a NSInteger with the raw number of bytes
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfReadBytesOnDemux;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfReadBytesOnDemux DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the current demux bitrate. may be 0 if the buffer is empty
  * \return a float of the current demux bitrate
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) float demuxBitrate;
+@property (NS_NONATOMIC_IOSONLY, readonly) float demuxBitrate DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the total number of decoded video blocks in the current media session
  * \return a NSInteger with the total number of decoded blocks
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDecodedVideoBlocks;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDecodedVideoBlocks DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of decoded audio blocks in the current media session
  * \return a NSInteger with the total number of decoded blocks
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDecodedAudioBlocks;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDecodedAudioBlocks DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the total number of displayed pictures during the current media session
  * \return a NSInteger with the total number of displayed pictures
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDisplayedPictures;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDisplayedPictures DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of pictures lost during the current media session
  * \return a NSInteger with the total number of lost pictures
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfLostPictures;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfLostPictures DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the total number of played audio buffers during the current media session
  * \return a NSInteger with the total number of played audio buffers
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfPlayedAudioBuffers;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfPlayedAudioBuffers DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of audio buffers lost during the current media session
  * \return a NSInteger with the total number of displayed pictures
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfLostAudioBuffers;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfLostAudioBuffers DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 /**
  * returns the total number of packets sent during the current media session
  * \return a NSInteger with the total number of sent packets
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfSentPackets;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfSentPackets DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of raw bytes sent during the current media session
  * \return a NSInteger with the total number of sent bytes
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfSentBytes;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfSentBytes DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the current bitrate of sent bytes
  * \return a float of the current bitrate of sent bits
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) float streamOutputBitrate;
+@property (NS_NONATOMIC_IOSONLY, readonly) float streamOutputBitrate DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of corrupted data packets during current sout session
  * \note value is 0 on non-stream-output operations
  * \return a NSInteger with the total number of corrupted data packets
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfCorruptedDataPackets;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfCorruptedDataPackets DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 /**
  * returns the total number of discontinuties during current sout session
  * \note value is 0 on non-stream-output operations
  * \return a NSInteger with the total number of discontinuties
  */
-@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDiscontinuties;
+@property (NS_NONATOMIC_IOSONLY, readonly) NSInteger numberOfDiscontinuties DEPRECATED_MSG_ATTRIBUTE("Use -[VLCMedia statistics] instead");
 
 @end
 

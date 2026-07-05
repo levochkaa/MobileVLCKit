@@ -2,7 +2,7 @@
  * libvlc_media_player.h:  libvlc_media_player external API
  *****************************************************************************
  * Copyright (C) 1998-2015 VLC authors and VideoLAN
- * $Id: 6cd57bcb5d83669aaaf2cb0f4c0f485fef5d6a3c $
+ * $Id$
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *          Jean-Paul Saman <jpsaman@videolan.org>
@@ -584,6 +584,8 @@ LIBVLC_API uint32_t libvlc_media_player_get_xwindow ( libvlc_media_player_t *p_m
  * Set a Win32/Win64 API window handle (HWND) where the media player should
  * render its video output. If LibVLC was built without Win32/Win64 API output
  * support, then this has no effects.
+ *
+ * \warning the HWND must have the WS_CLIPCHILDREN set in its style.
  *
  * \param p_mi the Media Player
  * \param drawable windows handle of the drawable

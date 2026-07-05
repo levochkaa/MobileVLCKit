@@ -1,7 +1,7 @@
 /*****************************************************************************
  * VLCKit: MobileVLCKit
  *****************************************************************************
- * Copyright (C) 2010-2013 Pierre d'Herbemont and VideoLAN
+ * Copyright (C) 2010-2023 Pierre d'Herbemont and VideoLAN
  *
  * Authors: Pierre d'Herbemont <pdherbemont # videolan.org>
  *          Felix Paul Kühne <fkuehne # videolan.org
@@ -27,6 +27,7 @@
 #import <MobileVLCKit/VLCMediaDiscoverer.h>
 #import <MobileVLCKit/VLCMediaList.h>
 #import <MobileVLCKit/VLCMediaPlayer.h>
+#import <MobileVLCKit/VLCAudioEqualizer.h>
 #import <MobileVLCKit/VLCMediaListPlayer.h>
 #import <MobileVLCKit/VLCMediaThumbnailer.h>
 #import <MobileVLCKit/VLCMediaMetaData.h>
@@ -41,6 +42,7 @@
 #import <MobileVLCKit/VLCConsoleLogger.h>
 #import <MobileVLCKit/VLCFileLogger.h>
 #import <MobileVLCKit/VLCLogMessageFormatter.h>
+#import <MobileVLCKit/VLCEventsConfiguration.h>
 
 @class VLCMedia;
 @class VLCMediaLibrary;
@@ -51,6 +53,9 @@
 @class VLCMediaThumbnailer;
 @class VLCMediaListPlayer;
 @class VLCMediaPlayer;
+@class VLCAudioEqualizer;
+@class VLCAudioEqualizerBand;
+@class VLCAudioEqualizerPreset;
 @class VLCMediaMetaData;
 @class VLCDialogProvider;
 @class VLCRendererDiscoverer;

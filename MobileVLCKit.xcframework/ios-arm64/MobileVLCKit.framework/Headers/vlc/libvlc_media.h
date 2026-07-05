@@ -2,7 +2,7 @@
  * libvlc_media.h:  libvlc external API
  *****************************************************************************
  * Copyright (C) 1998-2009 VLC authors and VideoLAN
- * $Id: 2a5666688ded4becad57784aca9ed1d8755f91a1 $
+ * $Id$
  *
  * Authors: Clément Stenac <zorglub@videolan.org>
  *          Jean-Paul Saman <jpsaman@videolan.org>
@@ -29,6 +29,12 @@
 # ifdef __cplusplus
 extern "C" {
 # endif
+
+#if defined(_MSC_VER)
+#include <basetsd.h>
+typedef SSIZE_T ssize_t;
+#endif
+
 
 /** \defgroup libvlc_media LibVLC media
  * \ingroup libvlc
